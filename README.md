@@ -1,4 +1,4 @@
-# Deep Writing
+# word-rnn-tensorflow
 
 A multi-layer Recurrent Neural Networks (RNN, LTSM, and GRU) for word-level language models in Python using TensorFlow.
 
