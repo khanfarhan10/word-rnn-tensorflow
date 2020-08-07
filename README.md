@@ -57,12 +57,3 @@ name, before the sword onto the scene." Caught in them and tried to cry it quick
 scruff of small pop, and glaring at the tank. "Fascinating," said rather deeply rules, 
 because Harry jumped upstairs quietly to start with every direction.
 ```
-
-## Projects
-If you have any project using this deep writing model, please let me know. I'll list up your project here.
-
-
-## Contribution
-Please feel free to:
-- Leave feedback in the issues
-- Open a Pull Request
