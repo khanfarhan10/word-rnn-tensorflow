@@ -1,145 +1,68 @@
-# word-rnn-tensorflow
-[![Build Status](https://travis-ci.org/hunkim/word-rnn-tensorflow.svg?branch=master)](https://travis-ci.org/hunkim/word-rnn-tensorflow)
+# Deep Writing
 
-Multi-layer Recurrent Neural Networks (LSTM, RNN) for word-level language models in Python using TensorFlow.
+A multi-layer Recurrent Neural Networks (RNN, LTSM, and GRU) for word-level language models in Python using TensorFlow.
 
-Mostly reused code from https://github.com/sherjilozair/char-rnn-tensorflow which was inspired from Andrej Karpathy's [char-rnn](https://github.com/karpathy/char-rnn).
+Mostly reused code from https://github.com/sherjilozair/char-rnn-tensorflow which was inspired by Andrej Karpathy's [char-rnn](https://github.com/karpathy/char-rnn).
 
-# Requirements
-- [Tensorflow 1.1.0rc0](http://www.tensorflow.org)
+## Requirements
+- [Tensorflow 1.0](http://www.tensorflow.org)
 
-# Basic Usage
-To train with default parameters on the tinyshakespeare corpus, run:
+## Basic Usage
+
+To train with default parameters on the Harry Potter books, run:
 ```bash
 python train.py
 ```
 
-To sample from a trained model
+To continue training after interruption or to run on more epochs, run:
+```bash
+python train.py --init_from=save
+```
+
+To sample from a trained model, run:
 ```bash
 python sample.py
 ```
 
-To pick using beam search, use the `--pick` parameter. Beam search can be
-further customized using the `--width` parameter, which sets the number of beams
-to search with. For example:
+To pick a specific starting word (for example, "Harry"), run:
 ```bash
-python sample.py --pick 2 --width 4
+python sample.py --prime "Harry"
+````
+
+## Sample Output
+Note: I added a bit of formatting to aid readability.
+
+```
+Harry was his eyes of dragons. He said the gale under the last way to squeal 
+on the whole of the Gryffindor wall, tapped the steering wheel over the grassy 
+desks and went very themselves so gamekeeper. 
+
+"I'm fine," said Harry, darting flat on his chest into a Quidditch field. 
+He raised and fell silently across the corridor, looking depressed. Harry's neck 
+seemed to believe too far-fetched solid. He felt something drained Hermione. 
+"But it's not for, though, is not all a human, so I must insist." The only one 
+became yet at eleven o'clock where the hippogriff swung off the grounds, trying to 
+get on the death of being interesting everywhere he moaned, attacked. 
+
+"Well, I'll know older lessons, Harry. You're all more sparks and they told the right. 
+I'll do the believe I was likely to be scrapped answer by the only evening of breath." 
+Crookshanks opened his arm and pulled out his chin. Sirius asked Voldemort if he had 
+a great game of people else keep talking on this mail happy. 
+
+"You sent me about how not to put these classes at its books at Gryffindor than witnesses 
+at the thing itself. Get it, rubbish," said Harry to keep the map all open, but pulled 
+out the door. "Are you stupid, Harry? Would make out of your best just to add with a 
+Time-Turner," Hermione said, with her fist. "I'll just look at the breakneck only-too-familiar 
+name, before the sword onto the scene." Caught in them and tried to cry it quickly in the 
+scruff of small pop, and glaring at the tank. "Fascinating," said rather deeply rules, 
+because Harry jumped upstairs quietly to start with every direction.
 ```
 
-# Sample output
-
-### Word-RNN
-```
-LEONTES:
-Why, my Irish time?
-And argue in the lord; the man mad, must be deserved a spirit as drown the warlike Pray him, how seven in.
-
-KING would be made that, methoughts I may married a Lord dishonour
-Than thou that be mine kites and sinew for his honour
-In reason prettily the sudden night upon all shalt bid him thus again. times than one from mine unaccustom'd sir.
-
-LARTIUS:
-O,'tis aediles, fight!
-Farewell, it himself have saw.
-
-SLY:
-Now gods have their VINCENTIO:
-Whipt fearing but first I know you you, hinder truths.
-
-ANGELO:
-This are entitle up my dearest state but deliver'd.
-
-DUKE look dissolved: seemeth brands
-That He being and
-full of toad, they knew me to joy.
-```
-
-### Char-RNN
-```
-ESCALUS:
-What is our honours, such a Richard story
-Which you mark with bloody been Thilld we'll adverses:
-That thou, Aurtructs a greques' great
-Jmander may to save it not shif theseen my news
-Clisters it take us?
-Say the dulterout apy showd. They hance!
-
-AnBESS OF GUCESTER:
-Now, glarding far it prick me with this queen.
-And if thou met were with revil, sir?
-
-KATHW:
-I must not my naturation disery,
-And six nor's mighty wind, I fairs, if?
-
-Messenger:
-My lank, nobles arms;
-```
-
-## Beam search
-
-Beam search differs from the other `--pick` options in that it does not greedily
-pick single words; rather, it expands the most promising nodes and keeps a
-running score for each beam.
-
-### Word-RNN (with beam search)
-```
-# python sample.py --prime "KING RICHARD III:" -n 100 --pick 2 --width 4
-
-KING RICHARD III:
-you, and and and and have been to be hanged, I am not to be touched?
-
-Provost:
-A Bohemian born, for tying his own train,
-Forthwith by all that converses more with a crow-keeper;
-I have drunk, Broach'd with the acorn cradled. Follow.
-
-FERDINAND:
-Who would not be conducted.
-
-BISHOP OF ELY:
-If you have been a-bed an acre of barren ground, hath holy;
-I warrant, my lord restored of noon.
-
-ISABELLA:
-'Save my master and his shortness whisper me to the pedlar;
-Money's a medler.
-That I will pamper it to complain.
-
-VOLUMNIA:
-Indeed, I am
-```
-
-### Word-RNN (without beam search)
-```
-# python sample.py --prime "KING RICHARD III:" -n 100
-
-KING RICHARD III:
-marry, so and unto the wind have yours;
-And thou Juliet, sir?
-
-JULIET:
-Well, wherefore speak your disposition cousin;
-May thee flatter.
-My hand will answer him;
-e not to your Mariana Below these those and take this life,
-That stir not light of reason.
-The time Lucentio keeps a root from you.
-Cursed be his potency,
-It was my neighbour till the birth and I drank stay.
-
-MENENIUS:
-Here's the matter,
-I know take this sour place,
-they know allegiance Had made you guilty.
-You do her bear comfort him between him or our noble bosom he did Bolingbroke's
-```
-
-# Projects
-If you have any project using this word-rnn, please let us know. I'll list up your project here.
-
-- http://bot.wpoem.com/ (Simple poem generator in Korean)
+## Projects
+If you have any project using this deep writing model, please let me know. I'll list up your project here.
 
 
-# Contribution
-Your comments (issues) and PRs are always welcome.
+## Contribution
+Please feel free to:
+- Leave feedback in the issues
+- Open a Pull Request

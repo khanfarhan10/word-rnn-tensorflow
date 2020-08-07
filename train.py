@@ -12,7 +12,7 @@ from model import Model
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--data_dir', type=str, default='data/tinyshakespeare',
+    parser.add_argument('--data_dir', type=str, default='data/harry-potter',
                        help='data directory containing input.txt')
     parser.add_argument('--input_encoding', type=str, default=None,
                        help='character encoding of input.txt, from https://docs.python.org/3/library/codecs.html#standard-encodings')
@@ -57,9 +57,9 @@ def train(args):
     data_loader = TextLoader(args.data_dir, args.batch_size, args.seq_length, args.input_encoding)
     args.vocab_size = data_loader.vocab_size
 
-    # check compatibility if training is continued from previously saved model
+    # Check if training is continued from previously saved model
     if args.init_from is not None:
-        # check if all necessary files exist
+        # Check if all necessary files exist
         assert os.path.isdir(args.init_from)," %s must be a path" % args.init_from
         assert os.path.isfile(os.path.join(args.init_from,"config.pkl")),"config.pkl file does not exist in path %s"%args.init_from
         assert os.path.isfile(os.path.join(args.init_from,"words_vocab.pkl")),"words_vocab.pkl.pkl file does not exist in path %s" % args.init_from
@@ -67,14 +67,14 @@ def train(args):
         assert ckpt,"No checkpoint found"
         assert ckpt.model_checkpoint_path,"No model path found in checkpoint"
 
-        # open old config and check if models are compatible
+        # Open old config and check if the models are compatible
         with open(os.path.join(args.init_from, 'config.pkl'), 'rb') as f:
             saved_model_args = cPickle.load(f)
         need_be_same=["model","rnn_size","num_layers","seq_length"]
         for checkme in need_be_same:
             assert vars(saved_model_args)[checkme]==vars(args)[checkme],"Command line argument and saved model disagree on '%s' "%checkme
 
-        # open saved vocab/dict and check if vocabs/dicts are compatible
+        # Open saved vocab/dict and check if vocabs/dicts are compatible
         with open(os.path.join(args.init_from, 'words_vocab.pkl'), 'rb') as f:
             saved_words, saved_vocab = cPickle.load(f)
         assert saved_words==data_loader.words, "Data and loaded model disagree on word set!"
